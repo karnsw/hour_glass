@@ -17,12 +17,14 @@ namespace SandClock
         private int xpos = 0;
         private int ypos = 0;
         List<Bitmap> sand = new List<Bitmap>();
-        Bitmap finalImage = new Bitmap(100, 100);
+        Bitmap finalImage = new Bitmap(100, 200);
+        Min15 glass = new Min15(1);
 
         public Form1()
         {
             InitializeComponent();
             this.Text = "ayyyyyy";
+
             timer1.Start();
         }
 
@@ -33,17 +35,20 @@ namespace SandClock
             //DrawFilledRectangle(500, 500);
 
 
-            var b = new Bitmap(1, 1);
-            b.SetPixel(0, 0, Color.Red);
+            //var b = new Bitmap(1, 1);
+            //b.SetPixel(0, 0, Color.Red);
 
-            var result = new Bitmap(b, 400, 400);
-            pictureBox1.Image = result;
-            pictureBox1.Image = DrawFilledRectangle(50,100);
-            
+            //var result = new Bitmap(b, 400, 400);
+            //pictureBox1.Image = result;
+            //pictureBox1.Image = DrawFilledRectangle(50,100);
 
+
+
+            finalImage = glass.initalizeHourGlass();
+            //pictureBox1.Image = finalImage;
 
             clicked = true;
-
+            ticks += 100;
         }
 
         private Bitmap DrawFilledRectangle(int x, int y)
@@ -78,15 +83,82 @@ namespace SandClock
             //MessageBox.Show(DateTime.Now.ToString());
             ticks++;
 
-
+            
 
 
 
             if (clicked == true)
             {
-                Border();
+                // Border();
+                //Console.WriteLine("1- " + glass.getSize());
 
-                
+
+
+                int size = (19900 - ticks);
+                Console.WriteLine("2- " + size);
+                Pixel tmp2 = glass.getHourGlassIMG(19900 - ticks);
+                if(tmp2.getImage().GetPixel(0,0) == BackColor)
+                {
+                    ticks = ticks + 2;
+                }
+                tmp2 = glass.getHourGlassIMG(19900 - ticks);
+                Bitmap bmp2 = new Bitmap(2, 2);
+                using (Graphics graph = Graphics.FromImage(bmp2))
+                {
+                    Rectangle ImageSize = new Rectangle(0, 0, 2, 2);
+                    graph.FillRectangle(Brushes.BlueViolet, ImageSize);
+                }
+                Pixel p2 = new Pixel(bmp2, tmp2.getXPos(), tmp2.getYPos(), tmp2.getWidth(), tmp2.getHeight());
+                glass.removeHourGlass(19900 - ticks);
+                glass.addHourGlass((19900 - ticks), p2);
+
+
+
+
+
+                Pixel temp = glass.getHourGlassIMG(ticks);
+                Bitmap bmp = new Bitmap(2, 2);
+                using (Graphics graph = Graphics.FromImage(bmp))
+                {
+                    Rectangle ImageSize = new Rectangle(0, 0, 2, 2);
+                    graph.FillRectangle(Brushes.Honeydew, ImageSize);
+                }
+                Pixel p = new Pixel(bmp, temp.getXPos(), temp.getYPos(), temp.getWidth(), temp.getHeight());
+                glass.removeHourGlass(ticks);
+                glass.addHourGlass(ticks, p);
+
+
+
+
+
+
+
+                using (Graphics g = Graphics.FromImage(finalImage))
+                {
+                    foreach (Pixel p4 in glass.getHourGlassIMGall())
+                    {
+                        g.DrawImage(p4.getImage(), new Rectangle(p4.getXPos(), p4.getYPos(), p4.getWidth(), p4.getHeight()));
+                    }
+                }
+
+                pictureBox1.Image = finalImage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 this.Text = ticks.ToString();
                 /*
                 sand.Add(AddFilledRectangle(xpos, ypos));
@@ -130,6 +202,8 @@ namespace SandClock
 
                 */
 
+
+                /*
                 if (ticks == 10)
                 {
                     this.Text = "Cheese";
@@ -142,6 +216,7 @@ namespace SandClock
                     ticks = 0;
                     Console.WriteLine(this.Text = ticks.ToString());
                 }
+                */
             }
 
         }
@@ -175,7 +250,7 @@ namespace SandClock
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
                 using (Pen graphPen = new Pen(Color.Blue, 0))
                 {
-                    g.DrawLine()
+                    
                 }
 
 
