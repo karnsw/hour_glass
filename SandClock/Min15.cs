@@ -7,12 +7,14 @@ using System.Threading.Tasks;
 
 namespace SandClock
 {
-    public class Min15 : HourGlass
+    public class Large : HourGlass
     {
         private int scale;
+        Bitmap finalImage = new Bitmap(200, 400);
 
-        public Min15(int scale)
-            : base("15 Minutes", 900)// Brushes.Red, Brushes.Black)
+
+        public Large(int scale)
+            : base("Large", 900)// Brushes.Red, Brushes.Black)
         {
             this.scale = scale;
         }
@@ -21,9 +23,59 @@ namespace SandClock
             return this.scale * this.getSeconds();
         }
 
+        public override Bitmap refreshImage(int ticks)
+        {
+            int size = (19900 - ticks);
+            Console.WriteLine("2- " + size);
+            Pixel tmp2 = this.getHourGlassIMG(19900 - ticks);
+            if (tmp2.getXPos() == 0 || tmp2.getXPos() == finalImage.Width - 2)
+            {
+                ticks = ticks + 2;
+            }
+            tmp2 = this.getHourGlassIMG(19900 - ticks);
+            Bitmap bmp2 = new Bitmap(2, 2);
+            using (Graphics graph = Graphics.FromImage(bmp2))
+            {
+                Rectangle ImageSize = new Rectangle(0, 0, 2, 2);
+                graph.FillRectangle(Brushes.BlueViolet, ImageSize);
+            }
+            Pixel p2 = new Pixel(bmp2, tmp2.getXPos(), tmp2.getYPos(), tmp2.getWidth(), tmp2.getHeight());
+            this.removeHourGlass(19900 - ticks);
+            this.addHourGlass((19900 - ticks), p2);
+
+
+
+
+
+            Pixel temp = this.getHourGlassIMG(ticks);
+            Bitmap bmp = new Bitmap(2, 2);
+            using (Graphics graph = Graphics.FromImage(bmp))
+            {
+                Rectangle ImageSize = new Rectangle(0, 0, 2, 2);
+                graph.FillRectangle(Brushes.Honeydew, ImageSize);
+            }
+            Pixel p = new Pixel(bmp, temp.getXPos(), temp.getYPos(), temp.getWidth(), temp.getHeight());
+            this.removeHourGlass(ticks);
+            this.addHourGlass(ticks, p);
+
+
+
+
+
+            using (Graphics g = Graphics.FromImage(finalImage))
+            {
+                foreach (Pixel p4 in this.getHourGlassIMGall())
+                {
+                    g.DrawImage(p4.getImage(), new Rectangle(p4.getXPos(), p4.getYPos(), p4.getWidth(), p4.getHeight()));
+                }
+            }
+
+            return finalImage;
+        }
+
+
         public Bitmap initalizeHourGlass()
         {
-            Bitmap finalImage = new Bitmap(200, 400);
 
             using (Graphics g = Graphics.FromImage(finalImage))
             {

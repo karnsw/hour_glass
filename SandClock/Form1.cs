@@ -17,21 +17,22 @@ namespace SandClock
         private int xpos = 0;
         private int ypos = 0;
         List<Bitmap> sand = new List<Bitmap>();
-        Bitmap finalImage = new Bitmap(100, 200);
-        Min15 glass = new Min15(1);
+        Bitmap finalImage = new Bitmap(200, 400);
+        Medium glass = new Medium();
 
         public Form1()
         {
             InitializeComponent();
             this.Text = "ayyyyyy";
+            this.BackColor = Color.LightGray;
+            glass.setFormColor(Brushes.LightGray);
 
-            timer1.Start();
         }
 
 
         private void button1_Click(object sender, EventArgs e)
         {
-  
+
             //DrawFilledRectangle(500, 500);
 
 
@@ -41,14 +42,14 @@ namespace SandClock
             //var result = new Bitmap(b, 400, 400);
             //pictureBox1.Image = result;
             //pictureBox1.Image = DrawFilledRectangle(50,100);
+            timer1.Stop();
+            timer1.Start();
 
-
-
-            finalImage = glass.initalizeHourGlass();
-            //pictureBox1.Image = finalImage;
+            //pictureBox1.
+            pictureBox1.Image = glass.initalizeHourGlass();
 
             clicked = true;
-            ticks += 100;
+            //ticks += 10;
         }
 
         private Bitmap DrawFilledRectangle(int x, int y)
@@ -89,75 +90,7 @@ namespace SandClock
 
             if (clicked == true)
             {
-                // Border();
-                //Console.WriteLine("1- " + glass.getSize());
-
-
-
-                int size = (19900 - ticks);
-                Console.WriteLine("2- " + size);
-                Pixel tmp2 = glass.getHourGlassIMG(19900 - ticks);
-                if(tmp2.getImage().GetPixel(0,0) == BackColor)
-                {
-                    ticks = ticks + 2;
-                }
-                tmp2 = glass.getHourGlassIMG(19900 - ticks);
-                Bitmap bmp2 = new Bitmap(2, 2);
-                using (Graphics graph = Graphics.FromImage(bmp2))
-                {
-                    Rectangle ImageSize = new Rectangle(0, 0, 2, 2);
-                    graph.FillRectangle(Brushes.BlueViolet, ImageSize);
-                }
-                Pixel p2 = new Pixel(bmp2, tmp2.getXPos(), tmp2.getYPos(), tmp2.getWidth(), tmp2.getHeight());
-                glass.removeHourGlass(19900 - ticks);
-                glass.addHourGlass((19900 - ticks), p2);
-
-
-
-
-
-                Pixel temp = glass.getHourGlassIMG(ticks);
-                Bitmap bmp = new Bitmap(2, 2);
-                using (Graphics graph = Graphics.FromImage(bmp))
-                {
-                    Rectangle ImageSize = new Rectangle(0, 0, 2, 2);
-                    graph.FillRectangle(Brushes.Honeydew, ImageSize);
-                }
-                Pixel p = new Pixel(bmp, temp.getXPos(), temp.getYPos(), temp.getWidth(), temp.getHeight());
-                glass.removeHourGlass(ticks);
-                glass.addHourGlass(ticks, p);
-
-
-
-
-
-
-
-                using (Graphics g = Graphics.FromImage(finalImage))
-                {
-                    foreach (Pixel p4 in glass.getHourGlassIMGall())
-                    {
-                        g.DrawImage(p4.getImage(), new Rectangle(p4.getXPos(), p4.getYPos(), p4.getWidth(), p4.getHeight()));
-                    }
-                }
-
-                pictureBox1.Image = finalImage;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                pictureBox1.Image = glass.refreshImage(ticks);
 
                 this.Text = ticks.ToString();
                 /*
@@ -283,6 +216,86 @@ namespace SandClock
                 }
             }
             pictureBox1.Image = finalImage;
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            String text = listBox1.GetItemText(listBox1.SelectedItem);
+            label3.Text = listBox1.SelectedItem.ToString();
+
+            Console.WriteLine(text);
+        }
+
+
+
+        private void listBox4_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            String text = listBox4.GetItemText(listBox4.SelectedItem);
+            label4.Text = listBox4.SelectedItem.ToString();
+
+            if (text == "15 Min")
+            {
+                glass.setTime(900);
+            }
+            else if (text == "30 Min")
+            {
+                glass.setTime(1800);
+            }
+            else if (text == "60 Min")
+            {
+                glass.setTime(3600);
+            }
+            Console.WriteLine(text);
+        }
+
+        private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            String text = listBox2.GetItemText(listBox2.SelectedItem);
+            label5.Text = listBox2.SelectedItem.ToString();
+
+             if (text == "Red/White")
+            {
+                Console.WriteLine(text);
+                glass.setEdgeColor(Brushes.White);
+                glass.setSandColor(Brushes.Red);
+                Console.WriteLine("edge- " + glass.getEdgeColor());
+                Console.WriteLine("sand- " + glass.getSandColor());
+            }
+            else if (text == "Blue/Black")
+            {
+                Console.WriteLine(text);
+                glass.setEdgeColor(Brushes.Black);
+                glass.setSandColor(Brushes.Blue);
+            }
+            else if (text == "Pink/Black")
+            {
+                Console.WriteLine(text);
+                glass.setEdgeColor(Brushes.Black);
+                glass.setSandColor(Brushes.Pink);
+            }
+
+            //pictureBox1.Image = glass.initalizeHourGlass();
+        }
+
+        private void listBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            String text = listBox3.GetItemText(listBox3.SelectedItem);
+            label6.Text = listBox3.SelectedItem.ToString();
+
+            if (text == "Black")
+            {
+                glass.setBackgroundColor(Brushes.Black);
+            }
+            else if (text == "HoneyDew")
+            {
+                glass.setBackgroundColor(Brushes.Honeydew);
+            }
+            else if (text == "White")
+            {
+                glass.setBackgroundColor(Brushes.White);
+            }
+
+            //pictureBox1.Image = glass.initalizeHourGlass();
         }
     }  
 }

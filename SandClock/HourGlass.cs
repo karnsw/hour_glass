@@ -11,25 +11,29 @@ namespace SandClock
 	public abstract class HourGlass
 	{
 		private string name;
+		private int pixels;
 		private int seconds;
-		private Brushes edgeColor;
-		private Brushes sandColor;
 		List<Pixel> hourGlass = new List<Pixel>();
 
 
-		public abstract int pixlesRemaining();
+		public abstract int bitmapCount();
+		public abstract Bitmap refreshImage(int ticks);
+		public abstract Bitmap initalizeHourGlass();
 
 
-		public HourGlass()
-		{
-		}
-		public HourGlass(string name, int seconds)// Brushes sandColor, Brushes edgeColor)
+		public HourGlass(string name, int pixels)
 		{
 			setName(name);
-			setSeconds(seconds);
-			setSandColor(sandColor);
-			setEdgeColor(edgeColor);
+			setPixelCount(pixels);
 		}
+
+
+
+
+
+
+
+
 
 		public string getName()
 		{
@@ -40,31 +44,21 @@ namespace SandClock
 			this.name = name;
 		}
 
+		public int getPixels()
+		{
+			return this.pixels;
+		}
+		public void setPixelCount(int pixels)
+		{
+			this.pixels = pixels;
+		}
 		public int getSeconds()
 		{
 			return this.seconds;
 		}
-		public void setSeconds(int seconds)
+		public void setSecondsCount(int seconds)
 		{
 			this.seconds = seconds;
-		}
-
-		public Brushes getSandColor()
-		{
-			return this.sandColor;
-		}
-		public void setSandColor(Brushes sandColor)
-		{
-			this.sandColor = sandColor;
-		}
-
-		public Brushes getEdgeColor()
-		{
-			return this.edgeColor;
-		}
-		public void setEdgeColor(Brushes edgeColor)
-		{
-			this.edgeColor = edgeColor;
 		}
 
 		public void addHourGlass(int pos, Pixel pixel)
