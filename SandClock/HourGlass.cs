@@ -17,7 +17,7 @@ namespace SandClock
 
 
 		public abstract int bitmapCount();
-		public abstract Bitmap refreshImage(int ticks);
+		public abstract Bitmap refreshImage();
 		public abstract Bitmap initalizeHourGlass();
 
 

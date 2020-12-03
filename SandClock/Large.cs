@@ -98,9 +98,11 @@ namespace SandClock
             return this.getSize() / this.scale;
         }
 
-        public override Bitmap refreshImage(int ticks)
+        
+        public override Bitmap refreshImage()
         {
-            
+            int ticks = 10;///////////fix
+
             //REMOVE Pixels from top
             Pixel temp = this.getHourGlassIMG(ticks);
             Bitmap bmp = new Bitmap(this.scale, this.scale);
@@ -109,7 +111,7 @@ namespace SandClock
                 Rectangle ImageSize = new Rectangle(0, 0, this.scale, this.scale);
                 graph.FillRectangle(this.backgroundColor, ImageSize);
             }
-            Pixel p = new Pixel(bmp, temp.getXPos(), temp.getYPos(), temp.getWidth(), temp.getHeight());
+            Pixel p = new Pixel(bmp, temp.getXPos(), temp.getYPos(), temp.getWidth(), temp.getHeight(), 0); ///////////fix
             this.removeHourGlass(ticks);
             this.addHourGlass(ticks, p);
 
@@ -128,7 +130,7 @@ namespace SandClock
                 Rectangle ImageSize = new Rectangle(0, 0, this.scale, this.scale);
                 graph.FillRectangle(this.sandColor, ImageSize);
             }
-            Pixel p2 = new Pixel(bmp2, tmp2.getXPos(), tmp2.getYPos(), tmp2.getWidth(), tmp2.getHeight());
+            Pixel p2 = new Pixel(bmp2, tmp2.getXPos(), tmp2.getYPos(), tmp2.getWidth(), tmp2.getHeight(), 0); ///////////fix
             this.removeHourGlass(this.bitmapCount() - ticks);
             this.addHourGlass((this.bitmapCount() - ticks), p2);
 
@@ -148,7 +150,7 @@ namespace SandClock
                         Rectangle ImageSize = new Rectangle(0, 0, this.scale, this.scale);
                         graph.FillRectangle(this.sandColor, ImageSize);
                     }
-                    Pixel p3 = new Pixel(bmp3, tmp3.getXPos(), tmp3.getYPos(), tmp3.getWidth(), tmp3.getHeight());
+                    Pixel p3 = new Pixel(bmp3, tmp3.getXPos(), tmp3.getYPos(), tmp3.getWidth(), tmp3.getHeight(), 0); ///////////fix
                     this.removeHourGlass(this.bitmapCount() - ticks);
                     this.addHourGlass((this.bitmapCount() - ticks), p3);
                 }
@@ -161,7 +163,7 @@ namespace SandClock
                         Rectangle ImageSize = new Rectangle(0, 0, this.scale, this.scale);
                         graph.FillRectangle(this.backgroundColor, ImageSize);
                     }
-                    Pixel p3 = new Pixel(bmp3, tmp3.getXPos(), tmp3.getYPos(), tmp3.getWidth(), tmp3.getHeight());
+                    Pixel p3 = new Pixel(bmp3, tmp3.getXPos(), tmp3.getYPos(), tmp3.getWidth(), tmp3.getHeight(), 0); ///////////fix
                     this.removeHourGlass(this.bitmapCount() - ticks);
                     this.addHourGlass((this.bitmapCount() - ticks), p3);
                 }
@@ -181,14 +183,14 @@ namespace SandClock
 
             return finalImage;
         }
-
+        
 
         public override Bitmap initalizeHourGlass()
         {
 
             using (Graphics g = Graphics.FromImage(finalImage))
             {
-                g.Clear(Color.White);
+
                 int offsetX = 0;
                 int offsetY = 0;
                 int index = 0;
@@ -243,8 +245,8 @@ namespace SandClock
    /////////////////////
                     }
                     g.DrawImage(bmp, new Rectangle(offsetX, offsetY, bmp.Width, bmp.Height));
-                    Pixel p = new Pixel(bmp, offsetX, offsetY, bmp.Width, bmp.Height);
-                    this.addHourGlass(index, p);
+                    //Pixel p = new Pixel(bmp, offsetX, offsetY, bmp.Width, bmp.Height);
+                    //this.addHourGlass(index, p);
                     index++;
                     offsetX = (offsetX + 2);
                     if (offsetX >= finalImage.Width)
@@ -257,5 +259,7 @@ namespace SandClock
             }
             return finalImage;
         }
+
+
     }
 }
