@@ -632,14 +632,10 @@ namespace SandClock
 
             using (Graphics g = Graphics.FromImage(finalImage))
             {
-                //g.Clear(Color.White);
                 int X = 0;
                 int Y = 0;
                 int index = 0;
                 int type;
-
-                //Console.WriteLine("height-   " + finalImage.Height);
-                //Console.WriteLine("width-   " + finalImage.Width);
 
                 while (X < finalImage.Width && Y < finalImage.Height)
                 {
@@ -660,19 +656,19 @@ namespace SandClock
                             X == 48 && Y == 102 || //x:[48-50], y:[102-104]
                             //left bottom angle
                             X <= 48 && 152 - X == Y || //x:[0-2]-[48-50], y:[104-106]-[152-154]
-                                                       //left bottom staraight
+                            //left bottom staraight
                             X == 0 && Y >= 154 && Y <= 202 || //x:[0-2], y:[154-156]-[202-204]
 
                             //right top straight
                             X == 100 && Y >= 2 && Y <= 50 || //x:[100-102], y:[2-4]-[50-52]
-                                                             //right top angle
+                            //right top angle
                             X >= 52 && 152 - Y == X || //x:[52-54]-[100-102], y:[52-54]-[100-102]
 
                             //right middle
                             X == 52 && Y == 102 || //x:[52-54], y:[102-104]
-                                                   //right bottom angle
+                            //right bottom angle
                             X >= 52 && X + 52 == Y ||  //x:[52-54]-[100-102], y:[104-106]-[152-154]
-                                                       //bottom right straight
+                            //bottom right straight
                             X == 100 && Y >= 154 && Y <= 202 || //x:[0-2], y:[154-156]-[202-204]
 
                             //bottom
@@ -700,35 +696,11 @@ namespace SandClock
                             graph.FillRectangle(this.getFormColor(), ImageSize);
                             type = BACKGROUND;
                         }
-
-
-
-
-
                         else
                         {
                             graph.FillRectangle(this.backgroundColor, ImageSize);
                             type = AIR;
                         }
-                        /*
-
-                        if (Y == 50 || Y == 154)
-                        {
-                            graph.FillRectangle(Brushes.Crimson, ImageSize);
-                        }
-
-                        
-                        if (X > Y - 52 && X < 152 - Y)
-                        {
-                            graph.FillRectangle(this.sandColor, ImageSize);
-                        }
-                        
-                        else
-                        {
-                            graph.FillRectangle(this.backgroundColor, ImageSize);
-                        }
-                        */
-                        /////////////////////
                     }
                     g.DrawImage(bmp, new Rectangle(X, Y, bmp.Width, bmp.Height));
                     Pixel p = new Pixel(bmp, X, Y, bmp.Width, bmp.Height, type);
@@ -750,8 +722,6 @@ namespace SandClock
         {
             int time = this.getTime();
 
-            int middleX = 26;
-            int middleY = 51;
             int upperBottom = (51*50) + 25; //col*row + 1/2(col)
             int pos = 0;
             int count = 0;
@@ -760,9 +730,6 @@ namespace SandClock
             {
                 while (count < time)
                 {
-                   // Console.WriteLine("Type- " + this.getHourGlassIMG(upperBottom - pos).getType());
-                    //Console.WriteLine("pos- " + pos);
-
 
                     if (this.getHourGlassIMG(upperBottom - pos).getType() != EDGE)
                     {
@@ -801,8 +768,6 @@ namespace SandClock
                 }
 
             }
-            
-
 
             return finalImage;
         }

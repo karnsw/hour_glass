@@ -12,23 +12,17 @@ namespace SandClock
             SMALL = 0,
             LARGE = 1;
 
-
         int size = LARGE;
-        int fill = HALF;
+        int fill = FULL;
+        int ticks = 0;
 
-        private int ticks = 0;
-        private bool clicked = false;
-        Small small = new Small(1200, HALF, Brushes.Gold, Brushes.White, Brushes.Black);
-        Large large = new Large(2598, HALF, Brushes.Gold, Brushes.White, Brushes.Black);
+        Small small = new Small(1213, FULL, Brushes.Gold, Brushes.White, Brushes.Black);
+        Large large = new Large(7152, FULL, Brushes.Gold, Brushes.White, Brushes.Black);
 
-        Boolean backgroundColorSelected = false;
-        Boolean trimColorSelected = false;
-        Boolean sandColorSelected = false;
-        Boolean airColorSelected = false;
         Boolean timeSelected = true;
-        Boolean sizeSelected = false;
-        Boolean fillSelected = false;
 
+        Boolean startUp = true;
+        Boolean clicked = false;
 
         public Form1()
         {
@@ -37,8 +31,10 @@ namespace SandClock
             large.setFormColor(Brushes.LightGray);
             small.setFormColor(Brushes.LightGray);
 
+
             initalizeImage(SMALL);
             fillImage(SMALL);
+
             initalizeImage(LARGE);
             fillImage(LARGE);
         }
@@ -46,11 +42,33 @@ namespace SandClock
 
         private void button1_Click(object sender, EventArgs e)
         {
-           timer1.Enabled = true;
-           timer1.Stop();
-           timer1.Start();
 
-           clicked = true;
+            if (timeSelected == false)
+            {
+                this.Text = "You must select a time to begin.";
+            }
+
+            else if (startUp == true)
+            {
+                timer1.Enabled = true;
+                timer1.Start();
+                startUp = false;
+                clicked = true;
+            }
+
+            else if(startUp == false && clicked == true)
+            {
+                timer1.Stop();
+                clicked = false;
+            }
+
+
+            else if (startUp == false && clicked == false)
+            {
+                timer1.Interval = ticks;
+                timer1.Start();
+                clicked = true;
+            }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -59,14 +77,27 @@ namespace SandClock
 
             if (clicked == true && size == SMALL)
             {
+                if(ticks == small.getTime())
+                {
+                    timer1.Stop();
+                    ticks = 0;
+                    this.Text = "TIMES UP!";
+                    return;
+                }
                pictureBox1.Image = small.refreshImage();
-                this.Text = ticks.ToString();
             }
             else if(clicked == true && size == LARGE)
             {
+                if (ticks == large.getTime())
+                {
+                    timer1.Stop();
+                    ticks = 0;
+                    this.Text = "TIMES UP!";
+                    return;
+                }
                 pictureBox1.Image = large.refreshImage();
-                this.Text = ticks.ToString();
             }
+            this.Text = ticks.ToString();
         }
 
 
@@ -81,11 +112,11 @@ namespace SandClock
                 {
                     if(fill == HALF)
                     {
-                        small.setTime(1200);
+                        small.setTime(1213);
                     }
                     else if(fill == FULL)
                     {
-                        small.setTime(1800);
+                        small.setTime(1801);
                     }
                 }
                 size = SMALL;
@@ -96,7 +127,7 @@ namespace SandClock
                 {
                     if (fill == HALF)
                     {
-                        large.setTime(2400);
+                        large.setTime(2598);
                     }
                     else if (fill == FULL)
                     {
@@ -122,13 +153,13 @@ namespace SandClock
             if (text == "Half")
             {
                 fill = HALF;
-                small.setTime(1200);
-                large.setTime(2400);
+                small.setTime(1213);
+                large.setTime(2598);
             }
             else if (text == "Full")
             {
                 fill = FULL;
-                small.setTime(1800);
+                small.setTime(1801);
                 large.setTime(7152);
             }
 
@@ -153,27 +184,27 @@ namespace SandClock
                 {
                     if (text == "30 sec")
                     {
-                        small.setTime(1200);
+                        small.setTime(1213);
                         this.timer1.Interval = 25;
                     }
                     else if (text == "2.5 min")
                     {
-                        small.setTime(1200);
+                        small.setTime(1213);
                         this.timer1.Interval = 125;
                     }
                     else if (text == "5 min")
                     {
-                        small.setTime(1200);
+                        small.setTime(1213);
                         this.timer1.Interval = 250;
                     }
                     else if (text == "10 min")
                     {
-                        small.setTime(1200);
+                        small.setTime(1213);
                         this.timer1.Interval = 500;
                     }
                     else if (text == "20 min")
                     {
-                        small.setTime(1200);
+                        small.setTime(1213);
                         this.timer1.Interval = 1000;
                     }
                 }
@@ -181,27 +212,27 @@ namespace SandClock
                 {
                     if (text == "45 sec")
                     {
-                        small.setTime(1800);
+                        small.setTime(1801);
                         this.timer1.Interval = 25;
                     }
                     else if (text == "3.75 min")
                     {
-                        small.setTime(1800);
+                        small.setTime(1801);
                         this.timer1.Interval = 125;
                     }
                     else if (text == "7.5 min")
                     {
-                        small.setTime(1800);
+                        small.setTime(1801);
                         this.timer1.Interval = 250;
                     }
                     else if (text == "15 min")
                     {
-                        small.setTime(1800);
+                        small.setTime(1801);
                         this.timer1.Interval = 500;
                     }
                     else if (text == "30 min")
                     {
-                        small.setTime(1800);
+                        small.setTime(1801);
                         this.timer1.Interval = 1000;
                     }
                 }
@@ -212,27 +243,27 @@ namespace SandClock
                 {
                     if (text == "1 min")
                     {
-                        large.setTime(2400);
+                        large.setTime(2598);
                         this.timer1.Interval = 25;
                     }
                     else if (text == "5 min")
                     {
-                        large.setTime(2400);
+                        large.setTime(2598);
                         this.timer1.Interval = 125;
                     }
                     else if (text == "10 min")
                     {
-                        large.setTime(2400);
+                        large.setTime(2598);
                         this.timer1.Interval = 250;
                     }
                     else if (text == "20 min")
                     {
-                        large.setTime(2400);
+                        large.setTime(2598);
                         this.timer1.Interval = 500;
                     }
                     else if (text == "40 min")
                     {
-                        large.setTime(2400);
+                        large.setTime(2598);
                         this.timer1.Interval = 1000;
                     }
                 }
@@ -293,18 +324,9 @@ namespace SandClock
                 large.setEdgeColor(Brushes.Red);
             }
             
-            
-            if(timeSelected == false)
-            {
-                sizeCheckClear(size);
-                initalizeImage(size);
-            }
-            else if(timeSelected == true)
-            {
-                sizeCheckClear(size);
-                initalizeImage(size);
-                fillImage(size);
-            }
+            sizeCheckClear(size);
+            initalizeImage(size);
+            fillImage(size);
         }
 
         private void listBox3_SelectedIndexChanged(object sender, EventArgs e)
