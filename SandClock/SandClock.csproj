@@ -54,7 +54,7 @@
     </Compile>
     <Compile Include="HourGlass.cs" />
     <Compile Include="Large.cs" />
-    <Compile Include="Medium.cs" />
+    <Compile Include="Small.cs" />
     <Compile Include="Pixel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
