@@ -1,0 +1,10 @@
+C:\Users\karns\source\repos\SandClock\bin\Debug\SandClock.exe.config
+C:\Users\karns\source\repos\SandClock\bin\Debug\SandClock.exe
+C:\Users\karns\source\repos\SandClock\bin\Debug\SandClock.pdb
+C:\Users\karns\source\repos\SandClock\obj\Debug\SandClock.csprojAssemblyReference.cache
+C:\Users\karns\source\repos\SandClock\obj\Debug\SandClock.Form1.resources
+C:\Users\karns\source\repos\SandClock\obj\Debug\SandClock.Properties.Resources.resources
+C:\Users\karns\source\repos\SandClock\obj\Debug\SandClock.csproj.GenerateResource.cache
+C:\Users\karns\source\repos\SandClock\obj\Debug\SandClock.csproj.CoreCompileInputs.cache
+C:\Users\karns\source\repos\SandClock\obj\Debug\SandClock.exe
+C:\Users\karns\source\repos\SandClock\obj\Debug\SandClock.pdb
