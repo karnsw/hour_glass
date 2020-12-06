@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 
 namespace SandClock
 {
@@ -19,26 +14,13 @@ namespace SandClock
             CENTER = 10,
             RIGHT = 11;
 
-
         private int scale;
         private Brush edgeColor;
         private Brush sandColor;
         private Brush backgroundColor;
-        private Brush formColor;
-        private int time;
+
         Bitmap finalImage = new Bitmap(102, 206);
         int count = 25;
-        int index = 0;
-        int counter = 2;
-        int width = 102;
-        int height = 206;
-
-
-        int startPos = 0;
-        int OX = 1;
-
-
-
 
         int O0 = 1;
         int O1 = 1;
@@ -51,7 +33,6 @@ namespace SandClock
         int botPos = (51 * 103) - 1 - 25 - 51;
         int maxbotpos = (51 * 103) - 1 - 25 - 51;
         int tearWidth = 5;
-
 
         int tearWidth1 = 3;
         int U0 = 1;
@@ -129,32 +110,21 @@ namespace SandClock
             return this.scale;
         }
 
-        public override int bitmapCount()
+        public override int bitIMGCount()
         {
-            return this.getSize() / this.scale;
+            return this.getHourGlassSize() / this.scale;
         }
-
-
 
         public override void clearHourGlass()
         {
             this.getHourGlassIMGall().Clear();
         }
 
-
-
-
-
-
         public override Bitmap refreshImage()
         {
             int _scale = 2;
 
-           // Console.WriteLine("start- " + start);
-            //Console.WriteLine("topPos- " + topPos);
-
             Pixel local1 = new Pixel();
-
 
             if (level1 == 1)
             {
@@ -187,10 +157,6 @@ namespace SandClock
             Pixel tmp1L = this.getHourGlassIMG(start - buffer1 - ((level1 - 1) * 51));
             Pixel tmp1R = this.getHourGlassIMG(start + buffer1 - ((level1 - 1) * 51));
 
-            Console.WriteLine("tempL- " + tmp1L.getType());
-            Console.WriteLine("tempR- " + tmp1R.getType());
-            Console.WriteLine("level1- " + level1);
-            Console.WriteLine("side1- " + side1);
             if ((tmp1L.getType() != EDGE || tmp1R.getType() != EDGE) && side1 != CENTER)
             {
                 if (side1 == LEFT)
@@ -216,124 +182,87 @@ namespace SandClock
                         if (U0 == level1 * tearWidth1 && U1 >= level1 * tearWidth1)
                         {
                             level1 = 2;
-                            U0++;
                         }
                         else if (U0 == level1 * tearWidth1)
                         {
-                            U0++;
                             side1 = CENTER;
                         }
-                        else
-                        {
-                            U0++;
-                        }
+                        U0++;
                     }
                     else if (level1 == 2)
                     {
                         if (U1 == level1 * tearWidth1 && U2 >= level1 * tearWidth1)
                         {
                             level1 = 3;
-                            U1++;
                         }
                         else if (U1 == level1 * tearWidth1)
                         {
                             side1 = CENTER;
                             U0 = 1 * tearWidth1 + 1;
-                            U1++;  
                         }
-                        else
-                        {
-                            U1++;
-                        }
+                        U1++;  
                     }
                     else if (level1 == 3)
                     {
                         if (U2 == level1 * tearWidth1 && U3 >= level1 * tearWidth1)
                         {
                             level1 = 4;
-                            U2++;
                         }
                         else if (U2 == level1 * tearWidth1)
                         {
                             side1 = CENTER;
-                            
                             U0 = 1 * tearWidth1 + 1;
                             U1 = 2 * tearWidth1 + 1;
-                            U2++;
-                            
                         }
-                        else
-                        {
-                            U2++;
-                        }
+                        U2++;
                     }
                     else if (level1 == 4)
                     {
                         if (U3 == level1 * tearWidth1 && U4 >= level1 * tearWidth1)
                         {
                             level1 = 5;
-                            U3++;
                         }
                         else if (U3 == level1 * tearWidth1)
                         {
                             side1 = CENTER;
-                            
                             U0 = 1 * tearWidth1 + 1;
                             U1 = 2 * tearWidth1 + 1;
                             U2 = 3 * tearWidth1 + 1;
-                            U3++;
-                            
                         }
-                        else
-                        {
-                            U3++;
-                        }
+                        U3++;
                     }
                     else if (level1 == 5)
                     {
                         if (U4 == level1 * tearWidth1 && U5 >= level1 * tearWidth1)
                         {
                             level1 = 6;
-                            U4++;
                         }
                         else if (U4 == level1 * tearWidth1)
                         {
                             side1 = CENTER;
-                            
                             U0 = 1 * tearWidth1 + 1;
                             U1 = 2 * tearWidth1 + 1;
                             U2 = 3 * tearWidth1 + 1;
                             U3 = 4 * tearWidth1 + 1;
-                            U4++;
-                            
                         }
-                        else 
-                        { 
-                            U4++;
-                        }
+                        U4++;
                     }
                     else if (level1 == 6)
                     {
                         if (U5 == level1 * tearWidth1 && U6 >= level1 * tearWidth1)
                         {
                             level1 = 7;
-                            U5++;
                         }
                         else if (U5 == level1 * tearWidth1)
                         {
                             side1 = CENTER;
-                          
                             U0 = 1 * tearWidth1 + 1;
                             U1 = 2 * tearWidth1 + 1;
                             U2 = 3 * tearWidth1 + 1;
                             U3 = 4 * tearWidth1 + 1;
                             U4 = 5 * tearWidth1 + 1;
-                            U5++;
                         }
-                        else
-                        {
-                            U5++;
-                        }
+                        U5++;
                     }
                     else if(level1 == 7)
                     {
@@ -343,8 +272,6 @@ namespace SandClock
             }
             else if ((tmp1L.getType() == EDGE && tmp1R.getType() == EDGE) || side1 == CENTER)
             {
-
-                Console.WriteLine("DROP!");
                 start = start + 51; //jump up a row
 
                 Pixel tmp1C = this.getHourGlassIMG(start);
@@ -363,8 +290,6 @@ namespace SandClock
                 U1 = U0;
                 U0 = 1;
 
-
-
                 level1 = 1;
             }
 
@@ -375,30 +300,8 @@ namespace SandClock
                 graph.FillRectangle(this.backgroundColor, ImageSize);
             }
             Pixel p9 = new Pixel(bmp9, local1.getXPos(), local1.getYPos(), local1.getWidth(), local1.getHeight(), AIR);
-            this.removeHourGlass(topPos);
-            this.addHourGlass((topPos), p9);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            this.removeHourGlassIMG(topPos);
+            this.insertHourGlassIMG((topPos), p9);
 
 
 
@@ -422,8 +325,8 @@ namespace SandClock
                         graph.FillRectangle(this.sandColor, ImageSize);
                     }
                     Pixel p3 = new Pixel(bmp3, tmp3.getXPos(), tmp3.getYPos(), tmp3.getWidth(), tmp3.getHeight(), SAND);
-                    this.removeHourGlass(i);
-                    this.addHourGlass((i), p3);
+                    this.removeHourGlassIMG(i);
+                    this.insertHourGlassIMG((i), p3);
                 }
                 else if (i % 51 != 0)
                 {
@@ -435,8 +338,8 @@ namespace SandClock
                         graph.FillRectangle(this.backgroundColor, ImageSize);
                     }
                     Pixel p3 = new Pixel(bmp3, tmp3.getXPos(), tmp3.getYPos(), tmp3.getWidth(), tmp3.getHeight(), AIR);
-                    this.removeHourGlass(i);
-                    this.addHourGlass((i), p3);
+                    this.removeHourGlassIMG(i);
+                    this.insertHourGlassIMG((i), p3);
                 }
             }
             count += 51;
@@ -444,26 +347,10 @@ namespace SandClock
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             //ADD Pixels to bottom
             Pixel local = new Pixel();
             if (side == CENTER)
             {
-              //  Console.WriteLine("JUMP!");
                 end = end - 51; //jump up a row
                 Pixel tmpC = this.getHourGlassIMG(end);
                 local.setXPos(tmpC.getXPos());
@@ -494,9 +381,6 @@ namespace SandClock
             Pixel tmpL = this.getHourGlassIMG(end - buffer - ((level-1) * 51));
             Pixel tmpR = this.getHourGlassIMG(end + buffer - ((level-1) * 51));
 
-            //Console.WriteLine("tempL- " + tmpL.getType());
-            //Console.WriteLine("tempR- " + tmpR.getType());
-            //Console.WriteLine("level- " + level);
             if (tmpL.getType() != EDGE || tmpR.getType() != EDGE)
             {
                 if(side == LEFT)
@@ -554,18 +438,6 @@ namespace SandClock
             else if ((tmpL.getType() == EDGE && tmpR.getType() == EDGE))
             {
                      
-               // Console.WriteLine("JUMP!");
-               /*
-               end = end - 51; //jump up a row
-
-                Pixel tmpC = this.getHourGlassIMG(end);
-                local.setXPos(tmpC.getXPos());
-                local.setYPos(tmpC.getYPos());
-                local.setWidth(tmpC.getWidth());
-                local.setHeight(tmpC.getHeight());
-                botPos = end;
-                side = LEFT;
-               */
                 O0 = O1;
                 O1 = O2;
                 O2 = O3;
@@ -581,36 +453,13 @@ namespace SandClock
                 graph.FillRectangle(this.sandColor, ImageSize);
             }
             Pixel p2 = new Pixel(bmp2, local.getXPos(), local.getYPos(), local.getWidth(), local.getHeight(), SAND);
-            this.removeHourGlass(botPos);
-            this.addHourGlass((botPos), p2);
+            this.removeHourGlassIMG(botPos);
+            this.insertHourGlassIMG((botPos), p2);
 
             if(botPos < maxbotpos)
             {
                 maxbotpos = botPos;
             }
-
-
-            OX++;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             using (Graphics g = Graphics.FromImage(finalImage))
             {
@@ -619,13 +468,8 @@ namespace SandClock
                     g.DrawImage(p4.getImage(), new Rectangle(p4.getXPos(), p4.getYPos(), p4.getWidth(), p4.getHeight()));
                 }
             }
-
-
             return finalImage;
-        }
-        
-
-
+        }       
 
         public override Bitmap initalizeHourGlass()
         {
@@ -704,7 +548,7 @@ namespace SandClock
                     }
                     g.DrawImage(bmp, new Rectangle(X, Y, bmp.Width, bmp.Height));
                     Pixel p = new Pixel(bmp, X, Y, bmp.Width, bmp.Height, type);
-                    this.addHourGlass(index, p);
+                    this.insertHourGlassIMG(index, p);
                     index++;
                     X = (X + this.scale);
                     if (X >= finalImage.Width)
@@ -730,7 +574,6 @@ namespace SandClock
             {
                 while (count < time)
                 {
-
                     if (this.getHourGlassIMG(upperBottom - pos).getType() != EDGE)
                     {
                         Bitmap bmp = new Bitmap(2, 2);
@@ -743,8 +586,8 @@ namespace SandClock
 
                             g.DrawImage(bmp, new Rectangle(tmp.getXPos(), tmp.getYPos(), 2, 2));
                             Pixel p = new Pixel(bmp, tmp.getXPos(), tmp.getYPos(), bmp.Width, bmp.Height, SAND);
-                            this.removeHourGlass(upperBottom - pos);
-                            this.addHourGlass(upperBottom - pos, p);
+                            this.removeHourGlassIMG(upperBottom - pos);
+                            this.insertHourGlassIMG(upperBottom - pos, p);
                         }
 
                         start = (upperBottom - pos) - 27;
@@ -766,12 +609,8 @@ namespace SandClock
                         }
                     }
                 }
-
             }
-
             return finalImage;
         }
-
-
     }
 }

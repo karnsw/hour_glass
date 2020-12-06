@@ -1,5 +1,4 @@
-﻿using SandClock.SandClock;
-using System;
+﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -31,7 +30,6 @@ namespace SandClock
             large.setFormColor(Brushes.LightGray);
             small.setFormColor(Brushes.LightGray);
 
-
             initalizeImage(SMALL);
             fillImage(SMALL);
 
@@ -50,7 +48,6 @@ namespace SandClock
 
             else if (startUp == true)
             {
-                timer1.Enabled = true;
                 timer1.Start();
                 startUp = false;
                 clicked = true;
@@ -350,17 +347,9 @@ namespace SandClock
                 large.setBackgroundColor(Brushes.White);
             }
 
-            if (timeSelected == false)
-            {
-                sizeCheckClear(size);
-                initalizeImage(size);
-            }
-            else if (timeSelected == true)
-            {
-                sizeCheckClear(size);
-                initalizeImage(size);
-                fillImage(size);
-            }
+            sizeCheckClear(size);
+            initalizeImage(size);
+            fillImage(size);
         }
 
         private void listBox6_SelectedIndexChanged(object sender, EventArgs e)
@@ -384,17 +373,9 @@ namespace SandClock
                 large.setSandColor(Brushes.Pink);
             }
 
-            if (timeSelected == false)
-            {
-                sizeCheckClear(size);
-                initalizeImage(size);
-            }
-            else if (timeSelected == true)
-            {
-                sizeCheckClear(size);
-                initalizeImage(size);
-                fillImage(size);
-            }
+            sizeCheckClear(size);
+            initalizeImage(size);
+            fillImage(size);
         }
 
 
@@ -454,8 +435,22 @@ namespace SandClock
             }
         }
 
-
-
+        private void button2_Click(object sender, EventArgs e)
+        {
+            clicked = false;
+            startUp = true;
+            ticks = 0;
+            timer1.Stop();
+            sizeCheckClear(SMALL);
+            sizeCheckClear(LARGE);
+            small = new Small(1213, FULL, Brushes.Gold, Brushes.White, Brushes.Black);
+            large = new Large(7152, FULL, Brushes.Gold, Brushes.White, Brushes.Black);
+            initalizeImage(SMALL);
+            fillImage(SMALL);
+            initalizeImage(LARGE);
+            fillImage(LARGE);
+            this.Text = "0";
+        }
 
         private void sizeCheckClear(int SIZE)
         {

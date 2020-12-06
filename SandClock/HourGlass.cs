@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
 
 
@@ -12,14 +9,13 @@ namespace SandClock
 	{
 		private string name;
 		private int pixels;
-		private int seconds;
 		private int time;
 		private int fillLevel;
 		private Brush formColor;
-		List<Pixel> hourGlass = new List<Pixel>();
+		private List<Pixel> hourGlass = new List<Pixel>();
 
 
-		public abstract int bitmapCount();
+		public abstract int bitIMGCount();
 		public abstract Bitmap refreshImage();
 		public abstract Bitmap initalizeHourGlass();
 		public abstract Bitmap addTime();
@@ -34,11 +30,27 @@ namespace SandClock
 		}
 
 
+		public string getName()
+		{
+			return name;
+		}
+		private void setName(string name)
+		{
+			this.name = name;
+		}
 
+		public int getPixelCount()
+		{
+			return pixels;
+		}
+		private void setPixelCount(int pixels)
+		{
+			this.pixels = pixels;
+		}
 
 		public Brush getFormColor()
 		{
-			return this.formColor;
+			return formColor;
 		}
 		public void setFormColor(Brush formColor)
 		{
@@ -46,75 +58,48 @@ namespace SandClock
 		}
 
 
-		public int getfillLevel()
-		{
-			return this.fillLevel;
-		}
-		public void setFillLevel(int level)
-		{
-			this.fillLevel = level;
-		}
-
-
-		public string getName()
-		{
-			return this.name;
-		}
-		public void setName(string name)
-		{
-			this.name = name;
-		}
-
-		public int getPixels()
-		{
-			return this.pixels;
-		}
-		public void setPixelCount(int pixels)
-		{
-			this.pixels = pixels;
-		}
-		public int getSeconds()
-		{
-			return this.seconds;
-		}
-		public void setSecondsCount(int seconds)
-		{
-			this.seconds = seconds;
-		}
-
-		public void addHourGlass(int pos, Pixel pixel)
-		{
-			this.hourGlass.Insert(pos, pixel);
-		}
-
-		public void removeHourGlass(int pos)
-		{
-			this.hourGlass.RemoveAt(pos);
-		}
-
-		public Pixel getHourGlassIMG(int pos)
-		{
-			return this.hourGlass.ElementAt(pos);
-		}
-
-		public int getSize()
-        {
-			return this.hourGlass.Count();
-        }
-
-		public List<Pixel> getHourGlassIMGall()
-		{
-			return this.hourGlass;
-		}
-
-
+		//non abstract methods
 		public void setTime(int time)
 		{
 			this.time = time;
 		}
 		public int getTime()
 		{
-			return this.time;
+			return time;
 		}
+		public int getFillLevel()
+		{
+			return fillLevel;
+		}
+		public void setFillLevel(int fillLevel)
+		{
+			this.fillLevel = fillLevel;
+		}
+
+		public void insertHourGlassIMG(int pos, Pixel pixel)
+		{
+			hourGlass.Insert(pos, pixel);
+		}
+
+		public void removeHourGlassIMG(int pos)
+		{
+			hourGlass.RemoveAt(pos);
+		}
+
+		public Pixel getHourGlassIMG(int pos)
+		{
+			return hourGlass.ElementAt(pos);
+		}
+
+		public List<Pixel> getHourGlassIMGall()
+		{
+			return hourGlass;
+		}
+		public int getHourGlassSize()
+		{
+			return hourGlass.Count();
+		}
+
+
 	}
 }

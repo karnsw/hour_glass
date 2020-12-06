@@ -7,16 +7,8 @@ using System.Threading.Tasks;
 
 namespace SandClock
 {
-
-
     public class Pixel
     {
-        static int
-            BACKGROUND = 0,
-            EDGE = 1,
-            AIR = 2,
-            SAND = 3;
-
         private int width;
         private int height;
         private int xPos;
